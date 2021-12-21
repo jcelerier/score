@@ -164,6 +164,10 @@ std::pair<ossia::inlets, ossia::outlets> ProcessExecutorComponent::setup_node(Ex
     {
       inls.push_back(new ossia::texture_inlet);
     }
+    else if (auto ctrl = qobject_cast<Gfx::GeometryInlet*>(ctl))
+    {
+      inls.push_back(new ossia::geometry_inlet);
+    }
   }
 
   outls.push_back(new ossia::texture_outlet);

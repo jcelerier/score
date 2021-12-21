@@ -24,7 +24,7 @@ Model::Model(
     : Process::ProcessModel{duration, id, "gfxProcess", parent}
 {
   metadata().setInstanceName(*this);
-  m_outlets.push_back(new TextureOutlet{Id<Process::Port>(0), this});
+  m_outlets.push_back(new TextureOutlet{Id<Process::Port>(1), this});
 
   const auto defaultFrag = QStringLiteral(R"_(/*{
 "CREDIT": "ossia score",
@@ -56,6 +56,7 @@ void main() {
 )_");
 
   setProgram({QByteArray{}, defaultFrag});
+
 }
 
 Model::Model(
@@ -66,7 +67,7 @@ Model::Model(
     : Process::ProcessModel{duration, id, "gfxProcess", parent}
 {
   metadata().setInstanceName(*this);
-  m_outlets.push_back(new TextureOutlet{Id<Process::Port>(0), this});
+  m_outlets.push_back(new TextureOutlet{Id<Process::Port>(1), this});
 
   setProgram(programFromFragmentShaderPath(init, {}));
 }
@@ -315,6 +316,8 @@ void Model::setupIsf(const isf::descriptor& desc)
     std::visit(input_vis{input, i, *this}, input.data);
     i++;
   }
+
+  m_inlets.push_back(new GeometryInlet{Id<Process::Port>(i), this});
 }
 }
 

@@ -106,7 +106,10 @@ std::vector<std::unique_ptr<score::InterfaceBase>> score_plugin_gfx::factories(
       FW<Process::PortFactory,
          Dataflow::WidgetInletFactory<Gfx::Images::ImageListChooser>,
          Gfx::TextureInletFactory,
-         Gfx::TextureOutletFactory>,
+         Gfx::TextureOutletFactory,
+         Gfx::GeometryInletFactory,
+         Gfx::GeometryOutletFactory
+      >,
       FW<Process::ProcessDropHandler,
          Gfx::Filter::DropHandler,
          Gfx::Video::DropHandler,

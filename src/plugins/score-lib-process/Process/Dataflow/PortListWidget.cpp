@@ -240,6 +240,9 @@ void PortWidgetSetup::setupImpl(
     case Process::PortType::Texture:
       advBtn->setIcon(makeIcon(QStringLiteral(":/icons/port_texture.png")));
       break;
+    case Process::PortType::Geometry:
+      advBtn->setIcon(makeIcon(QStringLiteral(":/icons/port_texture.png")));
+      break;
   }
 }
 }

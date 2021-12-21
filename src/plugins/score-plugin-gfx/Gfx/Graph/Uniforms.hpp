@@ -10,9 +10,8 @@
 
 namespace score::gfx
 {
-struct image
-{
-};
+struct image { };
+struct geometry { };
 enum class Types
 {
   Empty,
@@ -24,6 +23,7 @@ enum class Types
   Image,
   Audio,
   Camera,
+  Geometry,
 };
 
 using ValueVariant = std::variant<
@@ -32,5 +32,6 @@ using ValueVariant = std::variant<
     ossia::vec2f,
     ossia::vec3f,
     ossia::vec4f,
-    image>;
+    image,
+    geometry>;
 }
