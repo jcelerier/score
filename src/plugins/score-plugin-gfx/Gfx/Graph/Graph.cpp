@@ -128,7 +128,7 @@ void Graph::createAllRenderLists(GraphicsApi graphicsApi)
 
   for (auto& renderer : m_renderers)
   {
-    renderer->release();
+    releaseRenderList(*renderer);
   }
 
   m_renderers.clear();
@@ -343,6 +343,7 @@ static bool createNodeRenderer(score::gfx::Node& node, RenderList& r)
 std::shared_ptr<RenderList>
 Graph::createRenderList(OutputNode* output, RenderState state)
 {
+  qDebug() << "Create renderlist called";
   auto ptr = std::make_shared<RenderList>(*output, state);
   output->setRenderer(ptr);
   for (auto& node : m_nodes)
@@ -371,6 +372,11 @@ Graph::createRenderList(OutputNode* output, RenderState state)
 
   output->onRendererChange();
   {
+    for(auto& node : this->m_nodes)
+    {
+      node->initResources(r);
+    }
+
     r.init();
 
     if (model_nodes.size() > 1)
@@ -387,11 +393,21 @@ Graph::Graph() {
 
 }
 
+void Graph::releaseRenderList(RenderList& renderer)
+{
+  renderer.release();
+
+  for(auto& node : this->m_nodes)
+  {
+    node->releaseResources(renderer);
+  }
+}
+
 Graph::~Graph()
 {
   for (auto& renderer : m_renderers)
   {
-    renderer->release();
+    releaseRenderList(*renderer);
   }
 
   for (auto out : m_outputs)

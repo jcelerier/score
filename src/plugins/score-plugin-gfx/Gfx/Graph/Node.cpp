@@ -16,6 +16,16 @@ Node::~Node()
     delete port;
 }
 
+void Node::initResources(RenderList&)
+{
+
+}
+
+void Node::releaseResources(RenderList&)
+{
+
+}
+
 void Node::process(const Message& msg)
 {
 

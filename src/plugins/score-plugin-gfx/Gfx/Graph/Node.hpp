@@ -63,6 +63,18 @@ public:
   virtual void process(const Message& msg);
 
   /**
+   * @brief Initialize resources that should be kept alive for the whole duration of the node
+   *
+   * e.g. images, textures, meshes, etc.
+   */
+  virtual void initResources(RenderList& r);
+
+  /**
+   * @brief Release resources that should be kept alive for the whole duration of the node
+   */
+  virtual void releaseResources(RenderList& r);
+
+  /**
    * @brief Input ports of that node.
    */
   std::vector<Port*> input;

@@ -6,6 +6,8 @@
 namespace score::gfx
 {
 class GPUVideoDecoder;
+
+
 class VideoNodeRenderer
     : public NodeRenderer
 {
@@ -21,10 +23,6 @@ public:
 
   TextureRenderTarget renderTargetForInput(const Port& input) override;
 
-  void createGpuDecoder();
-  void setupGpuDecoder(RenderList& r);
-  void checkFormat(RenderList& r, AVPixelFormat fmt, int w, int h);
-
   void init(RenderList& renderer) override;
   void runRenderPass(
       RenderList&,
@@ -36,10 +34,6 @@ public:
 
 private:
   void createPipelines(RenderList& r);
-  void displayRealTimeFrame(AVFrame& frame, RenderList& renderer, QRhiResourceUpdateBatch& res);
-  void displayVideoFrame(AVFrame& frame, RenderList& renderer, QRhiResourceUpdateBatch& res);
-  bool mustReadVideoFrame();
-  AVFrame* nextFrame();
   const VideoNode& node;
 
   std::vector<std::pair<Edge*, Pipeline>> m_p;
@@ -52,21 +46,9 @@ private:
     float scale_w{}, scale_h{};
   };
 
-  std::unique_ptr<GPUVideoDecoder> m_gpu;
-  std::shared_ptr<Video::VideoInterface> m_decoder;
-  std::vector<AVFrame*> m_framesToFree;
-
-  AVPixelFormat m_currentFormat = AVPixelFormat(-1);
-  int m_currentWidth = 0;
-  int m_currentHeight = 0;
   score::gfx::ScaleMode m_currentScaleMode{};
-  QElapsedTimer m_timer;
-  AVFrame* m_nextFrame{};
-
-  double m_lastFrameTime{};
-  double m_lastPlaybackTime{-1.};
-  bool m_readFrame{};
   bool m_recomputeScale{};
+  void releasePipelines();
 };
 
 }
