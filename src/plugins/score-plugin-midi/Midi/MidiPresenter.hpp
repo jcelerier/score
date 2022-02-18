@@ -35,6 +35,7 @@ public:
   void parentGeometryChanged() override;
 
   const Midi::ProcessModel& model() const noexcept;
+  const Midi::View& view() const noexcept;
 
   void on_deselectOtherNotes();
   void on_duplicate();

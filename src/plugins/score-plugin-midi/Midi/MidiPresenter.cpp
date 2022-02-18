@@ -215,6 +215,11 @@ const Midi::ProcessModel& Presenter::model() const noexcept
   return static_cast<const Midi::ProcessModel&>(m_process);
 }
 
+const Midi::View& Presenter::view() const noexcept
+{
+  return *m_view;
+}
+
 void Presenter::on_deselectOtherNotes()
 {
   for (NoteView* n : m_notes)
