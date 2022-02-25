@@ -1,12 +1,15 @@
 ﻿#pragma once
 #include <oscr/ProcessModel.hpp>
 #include <oscr/ExecutorNode.hpp>
-#include <oscr/GpuNode.hpp>
 
 #include <Engine/Node/TickPolicy.hpp>
 #include <Explorer/DeviceList.hpp>
 #include <Explorer/DocumentPlugin/DeviceDocumentPlugin.hpp>
+
+#if __has_include(<Gfx/GfxApplicationPlugin.hpp>)
 #include <Gfx/GfxApplicationPlugin.hpp>
+#include <oscr/GpuNode.hpp>
+#endif
 #include <Process/Execution/ProcessComponent.hpp>
 #include <Process/ExecutionContext.hpp>
 #include <Scenario/Execution/score2OSSIA.hpp>
@@ -290,7 +293,7 @@ public:
               "Executor::ProcessModel<Info>",
               p}
   {
-
+#if __has_include(<Gfx/GfxApplicationPlugin.hpp>)
     if constexpr(GpuNode<Node>)
     {
       auto& gfx_exec = ctx.doc.plugin<Gfx::DocumentPlugin>().exec;
@@ -330,6 +333,7 @@ public:
       }
     }
     else
+#endif
     {
       auto node = std::make_shared<safe_node<Node>>(ossia::exec_state_facade{ctx.execState.get()});
       this->node = node;

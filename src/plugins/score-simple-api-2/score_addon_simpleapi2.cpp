@@ -11,8 +11,10 @@
 #include <Examples/Empty.hpp>
 #include <Examples/SampleAccurateGenerator.hpp>
 #include <Examples/SampleAccurateFilter.hpp>
+#if __has_include(<Gfx/TexturePort.hpp>)
 #include <Examples/TextureGenerator.hpp>
 #include <Examples/TextureFilter.hpp>
+#endif
 #include <Examples/TrivialGenerator.hpp>
 #include <Examples/TrivialFilter.hpp>
 #include <Examples/ZeroDependencyAudioEffect.hpp>
@@ -96,7 +98,10 @@ score_addon_simpleapi2::factories(
     , RawPortsExample
     , EmptyExample,
       Synth
+
+#if __has_include(<Gfx/TexturePort.hpp>)
     , TextureGeneratorExample, TextureFilterExample
+    #endif
     , SampleAccurateGeneratorExample,
       SampleAccurateFilterExample,
       TrivialGeneratorExample,
