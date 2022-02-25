@@ -93,7 +93,7 @@ struct Distortion
     for (std::size_t i = 0; i < chans; i++)
     {
       // The buffers are accessed through spans.
-      std::span<const double> in = input[i];
+      gsl::span<const double> in = input[i];
 
       // Filled with zeros
       temp_buffer.resize(std::max(temp_buffer.size(), in.size()));
@@ -117,8 +117,8 @@ struct Distortion
     output.resize(output_chans, samples_to_write);
 
     // Write to the channels once they are allocated:
-    std::span<double> out_l = output[0];
-    std::span<double> out_r = output[1];
+    gsl::span<double> out_l = output[0];
+    gsl::span<double> out_r = output[1];
 
     for(int64_t j = 0; j < samples_to_write; j++)
     {

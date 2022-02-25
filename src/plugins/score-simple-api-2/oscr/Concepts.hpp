@@ -305,14 +305,14 @@ struct multichannel_audio_view {
   int64_t offset{};
   int64_t duration{};
 
-  std::span<const double> operator[](std::size_t i) const noexcept
+  gsl::span<const double> operator[](std::size_t i) const noexcept
   {
     auto& chan = (*buffer)[i];
     int64_t min_dur = std::min(int64_t(chan.size()) - offset, duration);
     if(min_dur < 0)
       min_dur = 0;
 
-    return std::span<const double>{chan.data() + offset, std::size_t(min_dur)};
+    return gsl::span<const double>{chan.data() + offset, std::size_t(min_dur)};
   }
 
   std::size_t channels() const noexcept { return buffer->size(); }
@@ -329,14 +329,14 @@ struct multichannel_audio {
   int64_t offset{};
   int64_t duration{};
 
-  std::span<double> operator[](std::size_t i) const noexcept
+  gsl::span<double> operator[](std::size_t i) const noexcept
   {
     auto& chan = (*buffer)[i];
     int64_t min_dur = std::min(int64_t(chan.size()) - offset, duration);
     if(min_dur < 0)
       min_dur = 0;
 
-    return std::span<double>{chan.data() + offset, std::size_t(min_dur)};
+    return gsl::span<double>{chan.data() + offset, std::size_t(min_dur)};
   }
 
   std::size_t channels() const noexcept { return buffer->size(); }
