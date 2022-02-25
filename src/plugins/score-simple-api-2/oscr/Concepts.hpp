@@ -9,7 +9,7 @@
 #include <score/plugins/UuidKey.hpp>
 
 #include <cmath>
-#include <span>
+#include <gsl/span>
 #include <type_traits>
 #if __has_include(<concepts>)
 #include <concepts>
