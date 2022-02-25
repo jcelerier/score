@@ -363,13 +363,14 @@ public:
 
   void cleanup() override
   {
+#if __has_include(<Gfx/GfxApplicationPlugin.hpp>)
     if constexpr(GpuNode<Node>)
     {
       auto& gfx_exec = this->system().doc.template plugin<Gfx::DocumentPlugin>().exec;
       if (node_id >= 0)
         gfx_exec.ui->unregister_node(node_id);
     }
-
+#endif
     Executor::ProcessComponent::cleanup();
   }
 
