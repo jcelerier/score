@@ -12,7 +12,9 @@
 #include <Process/Dataflow/PortFactory.hpp>
 #include <score_plugin_engine.hpp>
 #include <ossia/detail/typelist.hpp>
+#if __has_include(<Gfx/TexturePort.hpp>)
 #include <Gfx/TexturePort.hpp>
+#endif
 
 /**
  * This file instantiates the classes that are provided by this plug-in.
@@ -166,12 +168,14 @@ struct InletInitFunc
     p->setName(QString::fromUtf8(in.name()));
     ins.push_back(p);
   }
+#if __has_include(<Gfx/TexturePort.hpp>)
   void operator()(const TextureInput auto& in)
   {
     auto p = new Gfx::TextureInlet(Id<Process::Port>(inlet++), &self);
     p->setName(QString::fromUtf8(in.name()));
     ins.push_back(p);
   }
+  #endif
   void operator()(const ControlInput auto& ctrl)
   {
     if (auto p = get_control(ctrl).create_inlet(Id<Process::Port>(inlet++), &self))
@@ -207,12 +211,14 @@ struct OutletInitFunc
     p->setName(QString::fromUtf8(out.name()));
     outs.push_back(p);
   }
+#if __has_include(<Gfx/TexturePort.hpp>)
   void operator()(const TextureOutput auto& out)
   {
     auto p = new Gfx::TextureOutlet(Id<Process::Port>(outlet++), &self);
     p->setName(QString::fromUtf8(out.name()));
     outs.push_back(p);
   }
+  #endif
   void operator()(const ControlOutput auto& ctrl)
   {
     if (auto p = ctrl.display().create_outlet(Id<Process::Port>(outlet++), &self))
